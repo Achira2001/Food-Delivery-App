@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
+// Define the User schema
 const UserSchema = new Schema({
     name: {
         type: String,
@@ -13,7 +14,7 @@ const UserSchema = new Schema({
     email: {
         type: String,
         required: true,
-        unique: true,
+        unique: true, // Ensures no two users have the same email
     },
     password: {
         type: String,
@@ -21,8 +22,9 @@ const UserSchema = new Schema({
     },
     date: {
         type: Date,
-        default: Date.now,
+        default: Date.now, // Automatically sets the current date
     },
 });
 
+// Export the User model
 module.exports = mongoose.model('User', UserSchema);
