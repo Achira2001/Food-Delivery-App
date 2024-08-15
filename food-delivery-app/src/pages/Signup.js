@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 export default function Signup() {
 
-    const [credentials, setcredetials] = useState({name:"", email:"", password:"", geolocation:""})
+    const [credentials, setcredentials] = useState({name:"", email:"", password:"", geolocation:""})
     
     const handleSubmit = async(e) =>{
         e.preventDefault();
@@ -12,7 +12,7 @@ export default function Signup() {
         header:{
             'Content-Type':'application/json'
         },
-        body:JSON.stringfy()    
+        body:JSON.stringify({name:credentials.name, email:credentials.email, password:credentials.password, location:credentials.geolocation})    
         })
     }
 
