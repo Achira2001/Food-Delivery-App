@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const FoodItem = require('../models/FoodItem');
 
-
 // Route to add food items to the database
 router.post('/add', async (req, res) => {
     try {
