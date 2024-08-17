@@ -39,8 +39,10 @@ mongoDB();
 // Routes
 const createUserRoutes = require('./Routes/CreateUser');
 const foodItemsRoutes = require('./Routes/FoodItems');
+const displayDataRoutes = require('./Routes/DisplayData');
 
 app.use('/api/', createUserRoutes);
+app.use('/api/', displayDataRoutes);
 app.use('/api/food_items', foodItemsRoutes);
 
 app.get('/', (req, res) => {

@@ -4,7 +4,7 @@ const User = require('../models/User');
 const { body, validationResult } = require('express-validator');
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const jwtSecret = "MynameisEndtoEndYouTubeChannel1$#"
+const jwtSecret = "MynameisAchira1$#"
 
 // Route to create a new user
 router.post('/createUser', [

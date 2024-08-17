@@ -4,20 +4,20 @@ require('dotenv').config();
 const mongoURI = process.env.MONGO_URI;
 
 const mongoDB = async () => {
-    try {
-        await mongoose.connect(mongoURI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
-        console.log("Connected to MongoDB");
-
-        // Optional: Verify connection by fetching some data
-        const fetchedData = await mongoose.connection.db.collection("food_items").find({}).toArray();
-        console.log(fetchedData);
-    } catch (error) {
-        console.error("Error connecting to MongoDB", error.message);
-        process.exit(1); // Exit the process with failure
-    }
-};
+        await mongoose.connect(mongoURI, {useNewUrlParser: true},async(err,result)=>{
+            if(err) console.log("---",err)
+            else{
+                console.log("connected");
+                const fetched_data = await mongoose.connection.db.collection("food_items");
+                fetched_data.find({}).toArray(function(err,data){
+                    if(err) console.log(err);
+                    else{
+                        global.food_items = data;
+                        console.log(global.food_items)
+                    }
+                })
+            }
+        }); 
+}
 
 module.exports = mongoDB;
