@@ -1,55 +1,34 @@
 require('dotenv').config();
 const express = require('express');
-const mongoose = require('mongoose');
 const cors = require('cors');
+const mongoDB = require('./db'); // Import MongoDB connection
 
 const app = express();
 const port = process.env.PORT || 5000;
 
-// Middleware to set headers
-app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
-    res.header(
-        "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept"
-    );
-    next();
-});
+// Middleware to enable CORS and parse JSON requests
+app.use(cors({
+    origin: "http://localhost:3000"
+}));
+app.use(express.json()); // Middleware to parse JSON requests
 
-// Middleware
-app.use(cors());
-app.use(express.json());
-
-// MongoDB Connection
-const mongoDB = async () => {
-    try {
-        await mongoose.connect(process.env.MONGO_URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
+// Initialize MongoDB connection
+mongoDB()
+    .then(() => {
+        // Start the server only after MongoDB is connected
+        app.listen(port, () => {
+            console.log(`Server is running on port ${port}`);
         });
-        console.log("Connected to MongoDB");
-    } catch (err) {
-        console.log("Failed to connect to MongoDB", err);
-    }
-};
+    })
+    .catch(err => {
+        console.error("MongoDB connection error:", err);
+        process.exit(1); // Exit the process with an error
+    });
 
-// Connect to MongoDB
-mongoDB();
-
-// Routes
-const createUserRoutes = require('./Routes/CreateUser');
-const foodItemsRoutes = require('./Routes/FoodItems');
-const displayDataRoutes = require('./Routes/DisplayData');
-
-app.use('/api/', createUserRoutes);
-app.use('/api/', displayDataRoutes);
-app.use('/api/food_items', foodItemsRoutes);
+// Route definitions
+app.use('/api/', require("./Routes/CreateUser"));
+app.use('/api', require("./Routes/DisplayData"));
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
-});
-
-// Start the server
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
 });
