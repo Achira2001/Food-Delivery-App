@@ -3,20 +3,20 @@ require('dotenv').config();
 
 const mongoURI = process.env.MONGO_URI;
 
-const mongoDB = async () => {
+const connectToMongo = async () => {
     try {
-        await mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
-        console.log("Connected to MongoDB");
+        await mongoose.connect(mongoURI);
+        console.log('Connected to MongoDB successfully');
 
-        const fetchedData = await mongoose.connection.db.collection("food_items").find({}).toArray();
-        const fetchedCategories = await mongoose.connection.db.collection("foodCategory").find({}).toArray();
+        const fetchedData = await mongoose.connection.db.collection('food_items').find({}).toArray();
+        const fetchedCategories = await mongoose.connection.db.collection('foodCategory').find({}).toArray();
 
         global.food_items = fetchedData;
         global.foodCategory = fetchedCategories;
     } catch (err) {
-        console.error("MongoDB connection error:", err);
-        throw err; // Re-throw error to handle in the calling function
+        console.error('Error connecting to MongoDB:', err);
+        process.exit(1); // Exit process with failure
     }
 };
 
-module.exports = mongoDB;
+module.exports = connectToMongo;
