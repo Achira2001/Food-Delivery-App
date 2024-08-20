@@ -75,12 +75,12 @@ router.post(
         try {
             const user = await User.findOne({ email: req.body.email });
             if (!user) {
-                return res.status(400).json({ success, message: 'Invalid email or password' });
+                return res.status(400).json({ success: false, message: 'Invalid email or password' });
             }
 
             const isPasswordCorrect = await bcrypt.compare(req.body.password, user.password);
             if (!isPasswordCorrect) {
-                return res.status(400).json({ success, message: 'Invalid email or password' });
+                return res.status(400).json({ success: false, message: 'Invalid email or password' });
             }
 
             const payload = {
@@ -94,7 +94,7 @@ router.post(
             res.json({ success, authToken });
         } catch (error) {
             console.error('Error during user login:', error.message);
-            res.status(500).json({ success, message: 'Internal Server Error' });
+            res.status(500).json({ success: false, message: 'Internal Server Error' });
         }
     }
 );

@@ -9,6 +9,8 @@ export default function Login() {
         e.preventDefault();
 
         try {
+            console.log("Credentials before login attempt:", credentials);
+
             const response = await fetch('http://localhost:5000/api/loginUser', {
                 method: 'POST',
                 headers: {
@@ -17,8 +19,14 @@ export default function Login() {
                 body: JSON.stringify(credentials),
             });
 
+            console.log("Response status:", response.status); // Log status
+
+            if (!response.ok) {
+                throw new Error("Failed to login, response not ok");
+            }
+
             const json = await response.json();
-            console.log('Login response:', json);
+            console.log('Login response JSON:', json);
 
             if (json.success) {
                 localStorage.setItem('authToken', json.authToken);
@@ -27,7 +35,7 @@ export default function Login() {
                 alert(json.message || 'Invalid credentials');
             }
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Error during login:', error);
             alert('An error occurred while trying to log in. Please try again later.');
         }
     };
