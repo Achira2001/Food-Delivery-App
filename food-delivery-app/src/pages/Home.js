@@ -43,7 +43,7 @@ export default function Home() {
                             </div>
                         </div>
                         <div className="carousel-item active">
-                            <img src="https://cdn.pixabay.com/photo/2023/05/29/17/01/hamburger-8026582_1280.jpg" className="d-block w-100 h-100 " alt="Burger" />
+                            <img src="https://cdn.pixabay.com/photo/2023/05/29/17/01/hamburger-8026582_1280.jpg" className="d-block w-100 " alt="Burger" />
                         </div>
                         <div className="carousel-item">
                             <img src="https://cdn.pixabay.com/photo/2016/11/29/05/07/breads-1867459_960_720.jpg" className="d-block w-100" alt="Pastry" />

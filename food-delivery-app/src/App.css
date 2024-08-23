@@ -1,3 +1,119 @@
+/* Global Styles */
+body, html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Navbar */
+.navbar {
+  padding: 0.5rem 1rem;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+}
+
+.nav-link {
+  font-size: 1.2rem;
+}
+
+/* Aligning Navbar items in a single line */
+.navbar-collapse {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-nav {
+  flex-direction: row;
+}
+
+.nav-item {
+  margin-left: 1rem;
+}
+
+.footer{
+  color: aliceblue;
+}
+
+/* Carousel */
+.carousel-inner img {
+  object-fit: cover;
+  height: 50vh;
+}
+
+/* Responsive Layouts */
+@media (max-width: 768px) {
+  .carousel-inner img {
+    height: 30vh;
+  }
+
+  .navbar-toggler {
+    margin-right: 1rem;
+  }
+
+  .navbar-nav .nav-item {
+    margin: 0.5rem 0;
+  }
+
+  .card {
+    width: 100% !important;
+    margin-bottom: 1.5rem;
+  }
+
+  .order-section {
+    margin-bottom: 2rem;
+  }
+
+  .total-price {
+    font-size: 1.5rem;
+  }
+
+  .checkout-button {
+    width: 100%;
+  }
+
+  .cart-container {
+    padding: 1rem;
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  .order-date, .total-price {
+    text-align: center;
+  }
+}
+
+@media (max-width: 576px) {
+  .carousel-caption {
+    bottom: 1rem;
+  }
+
+  .carousel-caption input {
+    width: 80%;
+  }
+
+  .navbar-brand {
+    font-size: 1.3rem;
+  }
+
+  .navbar-nav .nav-link {
+    font-size: 1rem;
+  }
+
+  .card {
+    width: 100% !important;
+    margin-bottom: 1rem;
+  }
+
+  .checkout-button {
+    font-size: 1rem;
+  }
+}
+
 .App {
   text-align: center;
 }
