@@ -18,12 +18,6 @@ export default function Cart() {
 
     const handleCheckOut = async () => {
         let userEmail = localStorage.getItem("userEmail");
-        console.log("Retrieved userEmail from localStorage:", userEmail);
-
-        if (!userEmail) {
-            alert("User email is not available. Please log in again.");
-            return;
-        }
 
         try {
             let response = await fetch("http://localhost:5000/api/orderData", {
@@ -43,6 +37,7 @@ export default function Cart() {
             if (response.ok) {
                 let result = await response.json();
                 if (result.success) {
+                    // Empty the cart
                     dispatch({ type: "DROP" });
                     alert("Order placed successfully!");
                 } else {
@@ -61,8 +56,8 @@ export default function Cart() {
     let totalPrice = data.reduce((total, food) => total + food.price, 0);
 
     return (
-        <div>
-            <div className='container m-auto mt-5 table-responsive table-responsive-sm table-responsive-md'>
+        <div className="cart-container">
+            <div className="container m-auto mt-5 table-responsive table-responsive-sm table-responsive-md">
                 <table className="table table-hover">
                     <thead className="text-success fs-4">
                         <tr>
@@ -92,11 +87,9 @@ export default function Cart() {
                     </tbody>
                 </table>
             </div>
-            <div>
+            <div className="cart-footer">
                 <h1 className='fs-2' style={{ color: "red" }}>Total Price: {totalPrice}/-</h1>
-            </div>
-            <div>
-                <button className="btn bg-success mt-5" onClick={handleCheckOut}>Check Out</button>
+                <button className="btn bg-success mt-3 checkout-button" onClick={handleCheckOut}>Check Out</button>
             </div>
         </div>
     );

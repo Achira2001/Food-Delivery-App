@@ -13,6 +13,9 @@ const reducer = (state, action) => {
             updatedCart.splice(action.index, 1); // Remove the item at the given index
             return updatedCart;
 
+        case "DROP":
+            return []; // Clears the entire cart
+
         default:
             console.log("Error in Reducer");
             return state;

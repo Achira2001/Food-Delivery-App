@@ -16,3 +16,32 @@ code {
 #carousel{
   max-height : 500px;
 }
+
+
+
+.cart-container {
+  max-height: 600px; /* Set a maximum height for the cart */
+  overflow-y: auto;
+  position: relative;
+  padding-bottom: 70px; /* Add padding to avoid the button overlapping items */
+}
+
+.cart-footer {
+  position: absolute;
+  bottom: 50;
+  width: 100%;
+  background: #ffffff; /* Background color to make footer distinct */
+  padding: 10px 10px 10px 10px; /* Add padding to the footer */
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for separation */
+}
+
+.checkout-button {
+  width: 100%;
+  padding: 10px;
+  font-size: 18px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
