@@ -29,7 +29,9 @@ export default function Login() {
             console.log('Login response JSON:', json);
 
             if (json.success) {
+                // Store the user's email in localStorage
                 localStorage.setItem('authToken', json.authToken);
+                localStorage.setItem('userEmail', credentials.email);  // Save user email
                 navigate('/');
             } else {
                 alert(json.message || 'Invalid credentials');

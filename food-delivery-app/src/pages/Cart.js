@@ -9,12 +9,54 @@ export default function Cart() {
     if (data.length === 0) {
         return (
             <div>
-                <div className="m-5 w-100 text-center fs-3" style={{ color: "red" }}> {/* Change the color as needed */}
+                <div className="m-5 w-100 text-center fs-3" style={{ color: "red" }}>
                     The Cart is Empty!
                 </div>
             </div>
         );
     }
+
+    const handleCheckOut = async () => {
+        let userEmail = localStorage.getItem("userEmail");
+        console.log("Retrieved userEmail from localStorage:", userEmail);
+
+        if (!userEmail) {
+            alert("User email is not available. Please log in again.");
+            return;
+        }
+
+        try {
+            let response = await fetch("http://localhost:5000/api/orderData", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    order_data: data,
+                    email: userEmail,
+                    order_date: new Date().toDateString()
+                })
+            });
+
+            console.log("Order Response:", response);
+
+            if (response.ok) {
+                let result = await response.json();
+                if (result.success) {
+                    dispatch({ type: "DROP" });
+                    alert("Order placed successfully!");
+                } else {
+                    alert("Failed to place order!");
+                }
+            } else {
+                console.error("Failed to place order, status:", response.status);
+                alert("Failed to place order! Please try again.");
+            }
+        } catch (error) {
+            console.error("Error during checkout:", error);
+            alert("An error occurred during checkout. Please try again.");
+        }
+    };
 
     let totalPrice = data.reduce((total, food) => total + food.price, 0);
 
@@ -54,7 +96,7 @@ export default function Cart() {
                 <h1 className='fs-2' style={{ color: "red" }}>Total Price: {totalPrice}/-</h1>
             </div>
             <div>
-                <button className="btn bg-success mt-5">Check Out</button>
+                <button className="btn bg-success mt-5" onClick={handleCheckOut}>Check Out</button>
             </div>
         </div>
     );
