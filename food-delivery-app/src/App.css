@@ -4,6 +4,24 @@ body, html {
   padding: 0;
   box-sizing: border-box;
   font-family: 'Arial', sans-serif;
+  height: 100%; /* Ensures the height of html and body is 100% */
+}
+
+/* App container */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensures the container takes the full viewport height */
+}
+
+/* Content wrapper */
+.content-wrap {
+  flex: 1; /* Allows the content to grow and push the footer to the bottom */
+}
+
+/* Footer Styles */
+.footer {
+  color: aliceblue;
 }
 
 /* Navbar */
@@ -31,10 +49,6 @@ body, html {
 
 .nav-item {
   margin-left: 1rem;
-}
-
-.footer{
-  color: aliceblue;
 }
 
 /* Carousel */
