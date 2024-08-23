@@ -1,6 +1,6 @@
 import React from "react";
-import trash from "../trash.svg";
 import { useCart, useDispatchCart } from "../components/ContextReducer";
+import trash from "../trash.svg";
 
 export default function Cart() {
     let data = useCart();
@@ -17,7 +17,8 @@ export default function Cart() {
     }
 
     const handleCheckOut = async () => {
-        let userEmail = localStorage.getItem("userEmail");
+        const userEmail = localStorage.getItem("userEmail");
+        const orderDate = new Date().toISOString();
 
         try {
             let response = await fetch("http://localhost:5000/api/orderData", {
@@ -26,26 +27,17 @@ export default function Cart() {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    order_data: data,
                     email: userEmail,
-                    order_date: new Date().toDateString()
+                    order_data: data,
+                    order_date: orderDate
                 })
             });
 
-            console.log("Order Response:", response);
-
             if (response.ok) {
-                let result = await response.json();
-                if (result.success) {
-                    // Empty the cart
-                    dispatch({ type: "DROP" });
-                    alert("Order placed successfully!");
-                } else {
-                    alert("Failed to place order!");
-                }
+                dispatch({ type: "DROP" }); // Clear the cart after successful checkout
+                alert("Order placed successfully!");
             } else {
-                console.error("Failed to place order, status:", response.status);
-                alert("Failed to place order! Please try again.");
+                alert("Failed to place order!");
             }
         } catch (error) {
             console.error("Error during checkout:", error);
@@ -53,7 +45,7 @@ export default function Cart() {
         }
     };
 
-    let totalPrice = data.reduce((total, food) => total + food.price, 0);
+    let totalPrice = data.reduce((total, food) => total + food.price * food.qty, 0);
 
     return (
         <div className="cart-container">

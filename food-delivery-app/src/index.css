@@ -20,7 +20,7 @@ code {
 
 
 .cart-container {
-  max-height: 600px; /* Set a maximum height for the cart */
+  max-height: 400px; /* Set a maximum height for the cart */
   overflow-y: auto;
   position: relative;
   padding-bottom: 70px; /* Add padding to avoid the button overlapping items */
@@ -45,3 +45,5 @@ code {
   border-radius: 5px;
   cursor: pointer;
 }
+
+
